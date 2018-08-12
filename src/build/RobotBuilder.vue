@@ -14,9 +14,9 @@
         <button @click="selectNextLeftArm()" class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
-        <img v-bind:src="availableParts.torsos[0].src" title="left arm"/>
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.torsos[selectTorsoIndex].src" title="left arm"/>
+        <button @click="selectPreviousTorso()" class="prev-selector">&#9668;</button>
+        <button @click="selectNextTorso()" class="next-selector">&#9658;</button>
       </div>
       <div class="right part">
         <img v-bind:src="availableParts.arms[selectRightArmIndex].src" title="left arm"/>
@@ -26,9 +26,9 @@
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img v-bind:src="availableParts.bases[0].src" title="left arm"/>
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.bases[selectBaseIndex].src" title="left arm"/>
+        <button @click="selectPreviousBase()" class="prev-selector">&#9668;</button>
+        <button @click="selectNextBase()" class="next-selector">&#9658;</button>
       </div>
     </div>
   </div>
@@ -83,7 +83,23 @@ export default {
       selectPreviousRightArm() {
         this.selectRightArmIndex = 
           getPreviousValidIndex(this.selectRightArmIndex, availableParts.arms.length);
-      }
+      },
+      selectNextTorso() {
+        this.selectTorsoIndex = 
+          getNextValidIndex(this.selectTorsoIndex, availableParts.torsos.length);
+      },
+      selectPreviousTorso() {
+        this.selectTorsoIndex =
+          getPreviousValidIndex(this.selectTorsoIndex, availableParts.torsos.length);
+      },
+       selectNextBase() {
+        this.selectBaseIndex = 
+          getNextValidIndex(this.selectBaseIndex, availableParts.bases.length);
+      },
+      selectPreviousBase() {
+        this.selectBaseIndex =
+          getPreviousValidIndex(this.selectBaseIndex, availableParts.bases.length);
+      },
     }
 }
 </script>
