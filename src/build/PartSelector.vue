@@ -25,9 +25,15 @@ export default {
       required: true,
       type: String,
       validator: function(value) {
-          return ['left', 'right', 'top', 'bottom', 'center'].includes(value);
+        return ["left", "right", "top", "bottom", "center"].includes(value);
       }
     }
+  },
+  created() {
+    this.emitSelectedPart();
+  },
+  updated() {
+      this.emitSelectedPart();
   },
   data() {
     return { selectedPartIndex: 0 };
@@ -38,6 +44,9 @@ export default {
     }
   },
   methods: {
+    emitSelectedPart() {
+      this.$emit("partsSelected", this.selectedPart);
+    },
     selectNextPart() {
       this.selectedPartIndex = getNextValidIndex(
         this.selectedPartIndex,
