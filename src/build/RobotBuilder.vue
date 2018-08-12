@@ -9,9 +9,9 @@
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm"/>
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectLeftArmIndex].src" title="left arm"/>
+        <button @click="selectPreviousLeftArm()" class="prev-selector">&#9650;</button>
+        <button @click="selectNextLeftArm()" class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
         <img v-bind:src="availableParts.torsos[0].src" title="left arm"/>
@@ -19,9 +19,9 @@
         <button class="next-selector">&#9658;</button>
       </div>
       <div class="right part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm"/>
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectRightArmIndex].src" title="left arm"/>
+        <button @click="selectPreviousRightArm()" class="prev-selector">&#9650;</button>
+        <button @click="selectNextRightArm()" class="next-selector">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
@@ -53,6 +53,10 @@ export default {
       return {
         availableParts,
         selectedHeadIndex : 0,
+        selectLeftArmIndex: 0,
+        selectRightArmIndex : 0,
+        selectTorsoIndex : 0,
+        selectBaseIndex: 0
         };
     },
     methods : {
@@ -63,6 +67,22 @@ export default {
       selectPreviousHead() {
         this.selectedHeadIndex =
           getPreviousValidIndex(this.selectedHeadIndex, availableParts.heads.length);
+      },
+      selectNextLeftArm() {
+        this.selectLeftArmIndex = 
+          getNextValidIndex(this.selectLeftArmIndex, availableParts.arms.length);
+      },
+      selectPreviousLeftArm() {
+        this.selectLeftArmIndex = 
+          getPreviousValidIndex(this.selectLeftArmIndex, availableParts.arms.length);
+      },
+      selectNextRightArm() {
+        this.selectRightArmIndex = 
+          getNextValidIndex(this.selectRightArmIndex, availableParts.arms.length);
+      },
+      selectPreviousRightArm() {
+        this.selectRightArmIndex = 
+          getPreviousValidIndex(this.selectRightArmIndex, availableParts.arms.length);
       }
     }
 }
