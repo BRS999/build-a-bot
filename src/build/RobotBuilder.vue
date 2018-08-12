@@ -44,7 +44,7 @@
         <thead>
           <tr>
             <th>Robot</th>
-            <th class="cost">Cost</th> 
+            <th class="cost">Cost</th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +59,8 @@
 </template>
 
 <script>
-import availableParts from "../data/parts";
+import availableParts from '../data/parts';
+import createdHookMixin from './created-hook-mixin';
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
@@ -72,7 +73,8 @@ function getNextValidIndex(index, length) {
 }
 
 export default {
-  name: "RobotBuilder",
+  name: 'RobotBuilder',
+  mixins : [createdHookMixin],
   data() {
     return {
       cart: [],
@@ -81,7 +83,7 @@ export default {
       selectLeftArmIndex: 0,
       selectRightArmIndex: 0,
       selectTorsoIndex: 0,
-      selectBaseIndex: 0
+      selectBaseIndex: 0,
     };
   },
   computed: {
@@ -94,20 +96,20 @@ export default {
         leftArm: availableParts.arms[this.selectLeftArmIndex],
         rightArm: availableParts.arms[this.selectRightArmIndex],
         torso: availableParts.torsos[this.selectTorsoIndex],
-        base: availableParts.bases[this.selectBaseIndex]
+        base: availableParts.bases[this.selectBaseIndex],
       };
     },
     headBorderStyle() {
       return {
         border: this.selectedRobot.head.onSale
-          ? "3px solid red"
-          : "3px solid #aaa"
+          ? '3px solid red'
+          : '3px solid #aaa',
       };
-    }
+    },
   },
   methods: {
     addToCart() {
-      var robot = this.selectedRobot;
+      const robot = this.selectedRobot;
       const cost =
         robot.head.cost +
         robot.leftArm.cost +
@@ -119,77 +121,79 @@ export default {
     selectNextHead() {
       this.selectHeadIndex = getNextValidIndex(
         this.selectHeadIndex,
-        availableParts.heads.length
+        availableParts.heads.length,
       );
     },
     selectPreviousHead() {
       this.selectHeadIndex = getPreviousValidIndex(
         this.selectHeadIndex,
-        availableParts.heads.length
+        availableParts.heads.length,
       );
     },
     selectNextLeftArm() {
       this.selectLeftArmIndex = getNextValidIndex(
         this.selectLeftArmIndex,
-        availableParts.arms.length
+        availableParts.arms.length,
       );
     },
     selectPreviousLeftArm() {
       this.selectLeftArmIndex = getPreviousValidIndex(
         this.selectLeftArmIndex,
-        availableParts.arms.length
+        availableParts.arms.length,
       );
     },
     selectNextRightArm() {
       this.selectRightArmIndex = getNextValidIndex(
         this.selectRightArmIndex,
-        availableParts.arms.length
+        availableParts.arms.length,
       );
     },
     selectPreviousRightArm() {
       this.selectRightArmIndex = getPreviousValidIndex(
         this.selectRightArmIndex,
-        availableParts.arms.length
+        availableParts.arms.length,
       );
     },
     selectNextTorso() {
       this.selectTorsoIndex = getNextValidIndex(
         this.selectTorsoIndex,
-        availableParts.torsos.length
+        availableParts.torsos.length,
       );
     },
     selectPreviousTorso() {
       this.selectTorsoIndex = getPreviousValidIndex(
         this.selectTorsoIndex,
-        availableParts.torsos.length
+        availableParts.torsos.length,
       );
     },
     selectNextBase() {
       this.selectBaseIndex = getNextValidIndex(
         this.selectBaseIndex,
-        availableParts.bases.length
+        availableParts.bases.length,
       );
     },
     selectPreviousBase() {
       this.selectBaseIndex = getPreviousValidIndex(
         this.selectBaseIndex,
-        availableParts.bases.length
+        availableParts.bases.length,
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .part {
   position: relative;
   width: 165px;
   height: 165px;
   border: 3px solid #aaa;
+
+  img {
+    width: 165px;
+  }
 }
-.part img {
-  width: 165px;
-}
+
 .top-row {
   display: flex;
   justify-content: space-around;
