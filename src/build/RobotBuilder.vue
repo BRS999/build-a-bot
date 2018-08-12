@@ -2,8 +2,8 @@
   <div class="content">
     <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     <div class="top-row">
-      <div class="top part">
-        <div class="robot-name">
+      <div :class="[saleBorderClass, 'top', 'part']">
+        <div class="robot-name" >
           {{selectedRobot.head.title}}
           <span v-show="selectedRobot.head.onSale" class="sale">Sale!</span>
         </div>
@@ -85,6 +85,9 @@ export default {
     };
   },
   computed: {
+    saleBorderClass() {
+      return this.selectedRobot.head.onSale ? 'sale-border' : '';
+    },
     selectedRobot() {
       return {
         head: availableParts.heads[this.selectHeadIndex],
@@ -92,6 +95,13 @@ export default {
         rightArm: availableParts.arms[this.selectRightArmIndex],
         torso: availableParts.torsos[this.selectTorsoIndex],
         base: availableParts.bases[this.selectBaseIndex]
+      };
+    },
+    headBorderStyle() {
+      return {
+        border: this.selectedRobot.head.onSale
+          ? "3px solid red"
+          : "3px solid #aaa"
       };
     }
   },
@@ -104,7 +114,7 @@ export default {
         robot.torso.cost +
         robot.rightArm.cost +
         robot.base.cost;
-      this.cart.push(Object.assign({}, robot, {cost}));
+      this.cart.push(Object.assign({}, robot, { cost }));
     },
     selectNextHead() {
       this.selectHeadIndex = getNextValidIndex(
@@ -207,7 +217,8 @@ export default {
   padding: 3px;
   font-size: 16px;
 }
-td, th {
+td,
+th {
   text-align: left;
   padding: 5px;
   padding-right: 20px;
@@ -287,6 +298,13 @@ td, th {
 }
 .right .next-selector {
   right: -3px;
+}
+.sale-border {
+  border: 3px solid red;
+}
+
+.non-sale-border {
+  border: 3px solid #aaa;
 }
 </style>
 
