@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div v-if="availableParts" class="content">
     <div class="preview">
       <CollapsibleSection>
         <div class="preview-content">
@@ -49,6 +49,9 @@ import CollapsibleSection from '../shared/CollapsibleSection.vue';
 export default {
   name: "RobotBuilder",
   components: { PartSelector, CollapsibleSection },
+  created() {
+    this.$store.dispatch('getParts');
+  },
   beforeRouteLeave(to, from, next) {
     if(this.addedToCart) {
       next(true); 
