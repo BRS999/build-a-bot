@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export default {
     //Needs state object
+    namespaced: true,
     state: {
         cart: [],
         parts: null
