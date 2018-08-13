@@ -10,10 +10,12 @@ import RobotHeads from '../parts/RobotHeads.vue';
 import RobotTorsos from '../parts/RobotTorsos.vue';
 import SidebarStandard from '../sidebar/SidebarStandard.vue';
 import SidebarBuild from '../sidebar/SidebarBuild.vue';
+import ShoppingCart from '../cart/ShoppingCart.vue';
 
 Vue.use(Router);
 
 export default new Router({
+    mode: 'history',
     routes: [{
         path: '/',
         name: 'Home',
@@ -61,6 +63,16 @@ export default new Router({
         path: '/parts/:partType/:id',
         name: 'Parts',
         component: PartInfo,
-        props: true
-    }]
-})
+        props: true,
+        beforeEnter(to, from, next) {
+            const isValid = Number.isInteger(+to.params.id);
+            next(isValid);
+        }
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: ShoppingCart
+    }
+    ]
+});

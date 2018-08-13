@@ -19,6 +19,11 @@
               Browse
             </router-link>
           </li>
+          <li class="nav-item cart">
+            <router-link class="nav-link" :to="{path : '/cart'}" exact>
+              Cart
+            </router-link>
+          </li>
         </ul>
       </nav>
     </header>
@@ -70,6 +75,11 @@ ul {
   font-size: 22px;
   border-right: 1px solid #bbb;
 }
+.nav-item.cart {
+  position: relative;
+  margin-left: auto;
+  border-right: none;
+}
 .logo {
   vertical-align: middle;
   height: 30px;
@@ -95,6 +105,4 @@ ul {
     min-height: 300px;
   }
 }
-
-
 </style>
