@@ -1,4 +1,4 @@
-const images = require.context('./images', true, /\.png$/);
+const images = require.context('../assets', true, /\.png$/);
 
 const parts = {
   heads: [
