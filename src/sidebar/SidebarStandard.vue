@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        Standard
+        Standard Sidebar
     </div>
 </template>
 

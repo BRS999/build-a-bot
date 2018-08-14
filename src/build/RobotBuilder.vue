@@ -44,19 +44,19 @@
 import availableParts from "../data/parts";
 import createdHookMixin from "./created-hook-mixin";
 import PartSelector from "./PartSelector.vue";
-import CollapsibleSection from '../shared/CollapsibleSection.vue';
+import CollapsibleSection from "../shared/CollapsibleSection.vue";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   name: "RobotBuilder",
   components: { PartSelector, CollapsibleSection },
-  created() {
-    this.$store.dispatch('getParts');
-  },
   beforeRouteLeave(to, from, next) {
-    if(this.addedToCart) {
-      next(true); 
+    if (this.addedToCart) {
+      next(true);
     } else {
-      const response = confirm('You have not added your robot to your cart. Do you want to leave?');
+      const response = confirm(
+        "You have not added your robot to your cart. Do you want to leave?"
+      );
       next(response);
     }
   },
@@ -88,6 +88,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("robots", ["addRobotToCart"]),
     addToCart() {
       const robot = this.selectedRobot;
       const cost =
@@ -97,8 +98,8 @@ export default {
         robot.rightArm.cost +
         robot.base.cost;
 
-        //namespaced commit
-        this.$store.commit('robots/addRobotToCart', Object.assign({}, robot, { cost }));
+      //namespaced commit
+      this.addRobotToCart(Object.assign({}, robot, { cost }));
       this.addedToCart = true;
     }
   }

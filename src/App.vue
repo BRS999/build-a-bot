@@ -41,12 +41,15 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
   name: "app",
   computed: {
     cart() {
       return this.$store.state.robots.cart;
-    }
+    },
+    ...mapGetters({rootGetterFoo: 'foo'})
   }
 };
 </script>
