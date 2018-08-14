@@ -15,7 +15,6 @@ import ShoppingCart from '../cart/ShoppingCart.vue';
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
     routes: [{
         path: '/',
         name: 'Home',
